@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout target repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -24,7 +24,7 @@ jobs:
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.3
         with:
           target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-          upstream_sync_repo: 上游作者名/notewood    # ⚠️ 只改这里
+          upstream_sync_repo: shuaiplus/nodewarden    # ⚠️ 只改这里
           upstream_sync_branch: main
           target_sync_branch: main
           test_mode: false
