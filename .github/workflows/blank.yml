@@ -1,0 +1,30 @@
+name: Fork Sync
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # 每天 UTC 4:17 自动同步（避开整点高峰）
+  workflow_dispatch:        # 允许手动触发
+
+jobs:
+  sync_with_upstream:
+    name: Sync with Upstream
+    runs-on: ubuntu-latest
+    if: ${{ github.event.repository.fork }}
+
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync Upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.3
+        with:
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_repo: 上游作者名/notewood    # ⚠️ 只改这里
+          upstream_sync_branch: main
+          target_sync_branch: main
+          test_mode: false
